@@ -16,10 +16,10 @@ public class CustoUniforme implements Busca {
 	public Problema problema;
 
 	@Override
-	public LinkedList<No> busca(Problema problema) {
+	public LinkedList<No> busca(Problema problema, Estado estadoInicial) {
 		// TODO Auto-generated method stub
 		this.problema = problema;
-		this.no = new No(problema.getEstadoInicial());
+		this.no = new No(estadoInicial);
 		this.no.profundidade = 0;
 		this.no.custoDePasso = 0;
 		borda.add(no);
@@ -131,9 +131,11 @@ public class CustoUniforme implements Busca {
 	public static void main(String[] args) {
 
 		Busca agente = new CustoUniforme();
-		// Problema problema = new Romenia("Sibiu", "Bucareste");
-		Problema problema = new AspiradorDePo("ESS", "ESL");
-		agente.busca(problema);
+		Problema problema = new Romenia("Sibiu", "Bucareste");
+		//Problema problema = new AspiradorDePo("ESS", "ESL");
+		//System.out.println(problema.getEstadoInicial().nome);
+		agente.busca(problema, problema.getEstadoInicial());
+		
 
 	}
 

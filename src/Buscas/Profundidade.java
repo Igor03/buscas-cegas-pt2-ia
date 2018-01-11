@@ -9,39 +9,45 @@ public class Profundidade implements Busca {
 
 	public No no;
 	public int profunfidadeGeral = -1;
+	public int count = 0;
+	public boolean encontrou = false;
 	Problema problema;
 	LinkedList<No> borda = new LinkedList<No>();
 	LinkedList<No> caminho = new LinkedList<>();
 	LinkedList<No> historico = new LinkedList<>();
 
 	@Override
-	public LinkedList<No> busca(Problema problema) {
-
-		this.problema = problema;
-		this.borda.add(new No(problema.getEstadoInicial()));
-
-		while (true) {
-			if (this.borda.isEmpty()) {
-				System.err.println("FALHA");
-				return null;
-			}
-
-			this.no = this.borda.removeFirst();
-			historico.add(no);
-			no.profundidade = ++profunfidadeGeral;
-
-			if (problema.testeDeObjetivo(no.estado)) {
-				mostrarCaminho();
-				System.out.println("-----------------------------------");
-				System.err.println("Objetivo alcancado!!!");
-				System.out.println("-----------------------------------");
-				return caminho;
-			}
-
-			for (int i = 0; i < expandir(this.no).size(); i++)
-				this.borda.addFirst(expandir(no).get(i));
+	public LinkedList<No> busca(Problema problema, Estado estadoInicial) {
+		
+		if (count == 0) {
+			this.problema = problema;
+			this.borda.add(new No(problema.getEstadoInicial()));
 		}
 
+		if (this.borda.isEmpty()) {
+			System.err.println("FALHA");
+			return null;
+		}
+
+		this.no = this.borda.removeFirst();
+		historico.add(no);
+		no.profundidade = ++profunfidadeGeral;
+
+		if (problema.testeDeObjetivo(no.estado)) {
+			encontrou = true;
+			mostrarCaminho();
+			System.out.println("-----------------------------------");
+			System.err.println("Objetivo alcancado!!!");
+			System.out.println("-----------------------------------");
+			return caminho;
+		}
+
+		LinkedList<No> expandidos = expandir(no);
+		
+		for (int i = 0; i < expandidos.size(); i++)
+			this.borda.addFirst(expandidos.get(i));
+		
+		return null;
 	}
 
 	@Override
@@ -82,6 +88,11 @@ public class Profundidade implements Busca {
 			}
 		}
 		System.out.println("Profundidade: " + caminho.size());
+		
+		System.out.println("Historioco\n\n\n");
+		for (int i = 0; i < historico.size(); i++) {
+			System.out.println(historico.get(i).estado.nome);
+		}
 	}
 
 	@Override
@@ -89,7 +100,7 @@ public class Profundidade implements Busca {
 		// TODO Auto-generated method stub
 		return borda;
 	}
-	
+
 	@Override
 	public LinkedList<No> getHistorico() {
 		// TODO Auto-generated method stub
@@ -100,10 +111,14 @@ public class Profundidade implements Busca {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Busca agente = new Profundidade();
+		Profundidade agente = new Profundidade();
 		Problema problema = new Romenia("Arad", "Bucareste");
+		
+		while (!agente.encontrou) {
+			agente.busca(problema, problema.getEstadoInicial());
 
-		agente.busca(problema);
+		}
+		System.out.println(agente.getHistorico().size());
 
 	}
 }
