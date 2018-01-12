@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import Estruturas.*;
 
-public class AspiradorDePo implements Problema {
+public class Aspirador implements Problema {
 
 	public LinkedList<Estado> aspirador = new LinkedList<>();
 	public LinkedList<Custo> custos = new LinkedList<>();
@@ -24,7 +24,7 @@ public class AspiradorDePo implements Problema {
 	public Estado ELS = new Estado();
 	public Estado DLS = new Estado();
 
-	public AspiradorDePo(String nomeEstadoInicial, String nomeObjetivo) {
+	public Aspirador(String nomeEstadoInicial, String nomeObjetivo) {
 		super();
 		//System.out.println("Problema do aspirador de po");
 		inicializarProblema();
@@ -169,7 +169,7 @@ public class AspiradorDePo implements Problema {
 	
 	public static void main (String[] args) {
 		
-		Problema problema = new AspiradorDePo("ESS", "DLL");
+		Problema problema = new Aspirador("ESS", "DLL");
 		
 		System.out.println(problema.getCustoCaminho(problema.verificaEstado("ELL"), problema.verificaEstado("DLL")));
 

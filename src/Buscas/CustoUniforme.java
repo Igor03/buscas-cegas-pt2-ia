@@ -16,7 +16,7 @@ public class CustoUniforme implements Busca {
 	public Problema problema;
 
 	@Override
-	public LinkedList<No> busca(Problema problema, Estado estadoInicial) {
+	public LinkedList<No> buscar(Problema problema, Estado estadoInicial) {
 		// TODO Auto-generated method stub
 		this.problema = problema;
 		this.no = new No(estadoInicial);
@@ -36,7 +36,6 @@ public class CustoUniforme implements Busca {
 			if (problema.testeDeObjetivo(no.estado)) {
 				mostrarCaminho();
 				System.out.println();
-				mostrarBorda(borda);
 				return caminho;
 			}
 
@@ -91,6 +90,10 @@ public class CustoUniforme implements Busca {
 			noAux = noAux.pai;
 		}
 
+		System.out.println("INICIO: ---> " + problema.getNomeEstadoInicial());
+		System.out.println("OBJETIVO: ---> " + problema.getNomeObjetivo());
+
+		System.out.println("...........................");
 		for (int i = 0; i < caminho.size(); i++) {
 			if (i + 1 < caminho.size()) {
 				System.out.println(caminho.get(i).estado.nome + " --> " + caminho.get(i + 1).estado.nome + " #"
@@ -98,6 +101,9 @@ public class CustoUniforme implements Busca {
 				custoTotal = custoTotal + problema.getCustoCaminho(caminho.get(i).estado, caminho.get(i + 1).estado);
 			}
 		}
+
+		System.out.println("...........................");
+		System.out.println("OBJETIVO ALCANCADO");
 		System.out.println("Custo total: " + this.custoTotal);
 	}
 
@@ -105,6 +111,12 @@ public class CustoUniforme implements Busca {
 	public LinkedList<No> getBorda() {
 		// TODO Auto-generated method stub
 		return borda;
+	}
+
+	@Override
+	public LinkedList<No> getHistorico() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/*
@@ -132,17 +144,9 @@ public class CustoUniforme implements Busca {
 
 		Busca agente = new CustoUniforme();
 		Problema problema = new Romenia("Sibiu", "Bucareste");
-		//Problema problema = new AspiradorDePo("ESS", "ESL");
-		//System.out.println(problema.getEstadoInicial().nome);
-		agente.busca(problema, problema.getEstadoInicial());
-		
+		// Problema problema = new AspiradorDePo("ESS", "ESL");
+		agente.buscar(problema, problema.getEstadoInicial());
 
-	}
-
-	@Override
-	public LinkedList<No> getHistorico() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
