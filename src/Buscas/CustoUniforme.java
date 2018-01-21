@@ -143,8 +143,8 @@ public class CustoUniforme implements Busca {
 	public static void main(String[] args) {
 
 		Busca agente = new CustoUniforme();
-		Problema problema = new Romenia("Sibiu", "Bucareste");
-		// Problema problema = new AspiradorDePo("ESS", "ESL");
+		// Problema problema = new Romenia("Sibiu", "Bucareste");
+		Problema problema = new Aspirador("ESS", "ESL");
 		agente.buscar(problema, problema.getEstadoInicial());
 
 	}

@@ -73,8 +73,8 @@ public class Bidirecional {
 
 	/*
 	 * Esta funcao verica se ha alguma inteseccao de estado nas buscas que estao
-	 * sendo realizadas. Se houver, ela retornara os indeces dos estados
-	 * incomuns nos historicos de n's de ambas as buscas. Caso contrario, o
+	 * sendo realizadas. Se houver, ela retornara os indices dos estados
+	 * relacionados aos historicos de n's de ambas as buscas. Caso contrario, o
 	 * retorno sera -1.
 	 * 
 	 */
@@ -120,7 +120,7 @@ public class Bidirecional {
 		Problema problema = new Romenia("Oradea", "Neamt");
 		// Problema problema = new Aspirador("ESS", "DLL");
 		Bidirecional agente = new Bidirecional();
-		agente.buscar(problema, "Profundidade", "Largura");
+		agente.buscar(problema, "LArgura", "Largura");
 
 	}
 
